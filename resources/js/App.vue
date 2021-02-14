@@ -7,6 +7,7 @@
                 <todo-list :items="items"
                            @itemdeleted="itemDeleted"
                            @itemupdated="itemUpdated"
+                           @itemsorted="itemSorted"
                 />
             </div>
         </div>
@@ -32,13 +33,17 @@ export default {
     },
     methods: {
         itemDeleted(item, index) {
-            this.$delete(this.items, index);
+            // this.$delete(this.items, index);
+            this.getList(); // hack
         },
         itemUpdated(item, index) {
             this.$set(this.items, index, item);
         },
         itemAdded(item) {
             this.items.push(item);
+        },
+        itemSorted(item, oldIndex, newIndex) {
+            this.getList(); // hack
         },
         async getList () {
             try {

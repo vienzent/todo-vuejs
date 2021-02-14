@@ -17,7 +17,10 @@ class CreateTasksTable extends Migration
             $table->id();
             $table->string("description", 500);
             $table->boolean("is_completed")->default(false);
+            $table->integer("order")->default(0);
             $table->timestamps();
+
+            $table->index('order');
         });
     }
 

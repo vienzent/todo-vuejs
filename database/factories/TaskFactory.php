@@ -21,8 +21,11 @@ class TaskFactory extends Factory
      */
     public function definition()
     {
+        static $order = 0;
         return [
             'description' => substr($this->faker->sentence(5), 0, 100),
+            'is_completed' => 0,
+            'order' => ++$order
         ];
     }
 }

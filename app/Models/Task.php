@@ -12,5 +12,6 @@ class Task extends Model
     protected $fillable = [
         'description',
         'is_completed',
+        'order',
     ];
 }

@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,4 +19,5 @@ use Illuminate\Support\Facades\Route;
 //    return $request->user();
 //});
 
-Route::apiResource('tasks', \App\Http\Controllers\TaskController::class);
+Route::patch('tasks/{task}/sort', [TaskController::class, "sort"]);
+Route::apiResource('tasks', TaskController::class);
