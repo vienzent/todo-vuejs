@@ -81,7 +81,7 @@ class TaskController extends Controller
 
             $order = $task->order;
 
-            DB::statement("
+            /*DB::statement("
                 UPDATE tasks t
                 JOIN (
                     SELECT
@@ -94,7 +94,14 @@ class TaskController extends Controller
                 ) o ON o.id = t.id
                 SET t.`order` = o.r
                 WHERE o.id = t.id
-            ");
+            ");*/
+
+            $tasks = Task::where('order', ">=", $order)->orderBy('order')->get();
+
+            foreach ($tasks as $task) {
+                $task->order = $order++;
+                $task->save();
+            }
 
             return $task;
         });
@@ -129,7 +136,7 @@ class TaskController extends Controller
                 $increment = $new;
             }
 
-            DB::statement("
+            /*DB::statement("
                 UPDATE tasks t
                 JOIN (
                     SELECT
@@ -142,7 +149,14 @@ class TaskController extends Controller
                 ) o ON o.id = t.id
                 SET t.`order` = o.r
                 WHERE o.id = t.id
-            ");
+            ");*/
+
+            $tasks = Task::whereBetween('order', [$to, $from])->where('id', '<>' , $id)->orderBy('order')->get();
+
+            foreach ($tasks as $t) {
+                $t->order = ++$increment;
+                $t->save();
+            }
 
             $task->order = $new;
             $task->save();
